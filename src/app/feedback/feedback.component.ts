@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Component, OnInit} from '@angular/core';
+import {ApiService} from "../service/api.service";
 
 @Component({
   selector: 'app-feedback',
@@ -12,17 +12,16 @@ model: FeedbackModel = {
   email: '',
   descricao: ''
 };
-  private apiURL = 'http://localhost:8080/feedback';
 
-  constructor(private http: HttpClient) {
+  constructor(private apiService: ApiService) {
 
   }
 
   ngOnInit() {
   }
 
-  envairFeedback(): void {
-    this.http.post(this.apiURL, this.model).subscribe(
+  postSendFeedback(): void {
+    this.apiService.postSendFeedback(this.model).subscribe(
       res => {
         location.reload();
       },

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 import {Paciente} from './model/paciente';
+import {ApiService} from "../service/api.service";
 
 
 @Component({
@@ -12,16 +13,15 @@ import {Paciente} from './model/paciente';
 export class PacientesComponent implements OnInit {
 
   paciente: Paciente[];
-  private apiUrl = 'http://localhost:8080/pacientes';
 
-  constructor(private http: HttpClient) { }
+  constructor(private apiService: ApiService ) { }
 
   ngOnInit() {
-    this.findAllPacientes();
+    this.getAllPacientes();
   }
 
-  findAllPacientes() {
-    this.http.get<Paciente[]>(this.apiUrl).subscribe(
+  getAllPacientes() {
+    this.apiService.getAllPacientes().subscribe(
       res => {
         this.paciente = res;
       },
