@@ -26,7 +26,7 @@ model: FeedbackModel = {
       res => {
         location.reload();
       },
-      err => {
+      err =>  {
         alert('Ocorreu um erro ao enviar o feedback');
       }
     );

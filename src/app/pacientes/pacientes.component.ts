@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+
+import {Paciente} from './model/paciente';
+
 
 @Component({
   selector: 'app-pacientes',
@@ -7,9 +11,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PacientesComponent implements OnInit {
 
-  constructor() { }
+  paciente: Paciente[];
+  private apiUrl = 'http://localhost:8080/pacientes';
+
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    this.findAllPacientes();
+  }
+
+  findAllPacientes() {
+    this.http.get<Paciente[]>(this.apiUrl).subscribe(
+      res => {
+        this.paciente = res;
+      },
+      error => {
+        alert('Ocorreu um erro');
+      }
+    );
   }
 
 }
